@@ -207,3 +207,45 @@ For issues or questions:
 ---
 
 **Enjoy building wealth in the virtual economy! 💰**
+
+## 🚢 Deployment (24/7)
+
+Quick instructions to run this bot on a 24/7 server using Docker and GitHub Actions.
+
+- Requirements on the server:
+   - Docker and Docker Compose installed
+   - SSH access for the deploy user
+
+- GitHub repository secrets to add (Settings → Security → Secrets → Actions):
+   - `SSH_HOST` : server IP or hostname
+   - `SSH_USER` : SSH username
+   - `SSH_KEY`  : private SSH key for `SSH_USER` (no passphrase) or use a deploy key
+   - `DEPLOY_PATH` : full path on server to deploy (e.g., `/home/ubuntu/randomm-ahhh`)
+   - `SSH_PORT` : (optional) SSH port if not 22
+
+- Deploy flow (already included):
+   - Push to `main` → GitHub Actions will SSH to your server and run `docker compose up -d --build`.
+
+- Manual server steps:
+   1. Install Docker & Docker Compose.
+   2. Create the deploy directory and ensure `SSH_USER` can write to it.
+   3. (Optional for private repo) Add the server's public key as a deploy key in the GitHub repo.
+   4. Add the secrets listed above in GitHub.
+
+- Local Docker run (quick test):
+```bash
+docker build -t randomm-ahhh .
+docker run --env-file .env -d --name randomm-ahhh randomm-ahhh
+```
+
+- PM2 alternative (run on server without Docker):
+   - Install Node.js and PM2 on the server
+   - Copy the code to the server and run:
+```bash
+npm ci --production
+npm install pm2 -g
+pm2 start ecosystem.config.js
+pm2 save
+```
+
+If you want, I can add a `DEPLOY.md` with these steps or modify the GitHub Actions workflow to build/push an image to a container registry instead.
