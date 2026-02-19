@@ -1,0 +1,28 @@
+name: Deploy to server
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.9
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            set -e
+            mkdir -p ${{ secrets.DEPLOY_PATH }}
+            if [ -d "${{ secrets.DEPLOY_PATH }}/.git" ]; then
+              cd ${{ secrets.DEPLOY_PATH }} && git pull
+            else
+              git clone https://github.com/${{ github.repository }} ${{ secrets.DEPLOY_PATH }}
+            fi
+            cd ${{ secrets.DEPLOY_PATH }}
+            docker compose pull || true
+            docker compose up -d --build
