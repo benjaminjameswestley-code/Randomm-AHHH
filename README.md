@@ -210,11 +210,12 @@ For issues or questions:
 
 ## 🚢 Deployment (24/7)
 
-Quick instructions to run this bot on a 24/7 server using Docker and GitHub Actions.
+Quick instructions to run this bot on a 24/7 server using PM2 and GitHub Actions.
 
 - Requirements on the server:
-   - Docker and Docker Compose installed
+   - Node.js 18+ installed
    - SSH access for the deploy user
+   - (Optional) `pm2` installed globally or the workflow will install it
 
 - GitHub repository secrets to add (Settings → Security → Secrets → Actions):
    - `SSH_HOST` : server IP or hostname
@@ -224,28 +225,21 @@ Quick instructions to run this bot on a 24/7 server using Docker and GitHub Acti
    - `SSH_PORT` : (optional) SSH port if not 22
 
 - Deploy flow (already included):
-   - Push to `main` → GitHub Actions will SSH to your server and run `docker compose up -d --build`.
+   - Push to `main` → GitHub Actions will SSH to your server, pull the latest code, run `npm ci`, and start/reload the app via `pm2`.
 
 - Manual server steps:
-   1. Install Docker & Docker Compose.
-   2. Create the deploy directory and ensure `SSH_USER` can write to it.
+   1. Install Node.js on the server.
+   2. Ensure `SSH_USER` can write to `DEPLOY_PATH`.
    3. (Optional for private repo) Add the server's public key as a deploy key in the GitHub repo.
    4. Add the secrets listed above in GitHub.
 
-- Local Docker run (quick test):
+- Start the app manually with PM2 (if you prefer not to use the Action):
 ```bash
-docker build -t randomm-ahhh .
-docker run --env-file .env -d --name randomm-ahhh randomm-ahhh
-```
-
-- PM2 alternative (run on server without Docker):
-   - Install Node.js and PM2 on the server
-   - Copy the code to the server and run:
-```bash
+cd /path/to/your/app
 npm ci --production
-npm install pm2 -g
-pm2 start ecosystem.config.js
+npm install -g pm2
+pm2 start ecosystem.config.js --env production
 pm2 save
 ```
 
-If you want, I can add a `DEPLOY.md` with these steps or modify the GitHub Actions workflow to build/push an image to a container registry instead.
+If you want, I can add a `DEPLOY.md` with expanded server setup steps and troubleshooting notes.

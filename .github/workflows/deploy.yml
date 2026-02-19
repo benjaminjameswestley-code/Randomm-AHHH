@@ -24,5 +24,15 @@ jobs:
               git clone https://github.com/${{ github.repository }} ${{ secrets.DEPLOY_PATH }}
             fi
             cd ${{ secrets.DEPLOY_PATH }}
-            docker compose pull || true
-            docker compose up -d --build
+            # Install dependencies and ensure PM2 is available
+            npm ci --production
+            if ! command -v pm2 >/dev/null 2>&1; then
+              npm install -g pm2
+            fi
+            # Start or reload using PM2 and the ecosystem file
+            if pm2 describe randomm-ahhh >/dev/null 2>&1; then
+              pm2 reload ecosystem.config.js --env production || pm2 restart ecosystem.config.js --env production
+            else
+              pm2 start ecosystem.config.js --env production
+            fi
+            pm2 save
