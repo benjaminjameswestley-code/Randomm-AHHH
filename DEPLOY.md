@@ -38,11 +38,29 @@ pm2 save
 ```
 
 ### Step 6: Enable Auto-Restart on Server Reboot
+
+⚠️ **Linux/Mac only** — if you're on **Windows**, skip this step.
+
+On Linux/Mac servers:
 ```bash
 pm2 startup
 ```
 
 **Done!** Your bot will now stay online 24/7 and restart automatically if it crashes.
+
+---
+
+## ⚠️ Important: Windows vs Linux
+
+**If you're on Windows:**
+- You **cannot** run `pm2 startup` on Windows (it only works on Linux/Mac servers)
+- To keep your bot online 24/7, you **must deploy to a Linux server**
+- Use **Replit** (free, easiest) or **DigitalOcean** / **Linode** (paid, more control)
+
+**If you want to run locally on Windows:**
+- Run `pm2 start ecosystem.config.js --env production` manually whenever you start your PC
+- Or use **Windows Task Scheduler** to auto-start PM2 on boot
+- This is **not recommended** for 24/7 uptime — use a real server instead
 
 ---
 
