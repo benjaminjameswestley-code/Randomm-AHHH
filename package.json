@@ -1,0 +1,19 @@
+{
+  "name": "apollo-attendance-bot",
+  "version": "2.0.0",
+  "description": "Professional attendance tracking Discord bot with Apollo-style modular architecture",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "remind": "node index.js remind"
+  },
+  "dependencies": {
+    "discord.js": "^14.0.0",
+    "dotenv": "^16.0.0",
+    "mongoose": "^9.5.0",
+    "node-schedule": "^2.1.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

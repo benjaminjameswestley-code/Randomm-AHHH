@@ -1,0 +1,8 @@
+﻿module.exports = {
+  name: "ready",
+  once: true,
+  async execute(client) {
+    console.log(`Bot logged in as ${client.user.tag}`);
+    client.user.setActivity("attendance events", { type: "WATCHING" });
+  },
+};

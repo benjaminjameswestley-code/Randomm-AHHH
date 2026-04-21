@@ -1,0 +1,66 @@
+﻿{
+  "themes": {
+    "default": {
+      "name": "Default (Discord Blue)",
+      "colors": {
+        "primary": "#5865F2",
+        "success": "#26D07C",
+        "error": "#FF6B6B",
+        "warning": "#FF9F43",
+        "info": "#FFA500"
+      },
+      "emojis": {
+        "attending": "✅",
+        "maybe": "❓",
+        "not_attending": "❌",
+        "calendar": "📅",
+        "bell": "⏰",
+        "chart": "📊",
+        "users": "👥",
+        "reminder": "📢"
+      }
+    },
+    "dark": {
+      "name": "Dark Theme",
+      "colors": {
+        "primary": "#2C2F33",
+        "success": "#43B581",
+        "error": "#F04747",
+        "warning": "#FAA61A",
+        "info": "#00B0F4"
+      },
+      "emojis": {
+        "attending": "✅",
+        "maybe": "❓",
+        "not_attending": "❌",
+        "calendar": "📅",
+        "bell": "⏰",
+        "chart": "📊",
+        "users": "👥",
+        "reminder": "📢"
+      }
+    },
+    "green": {
+      "name": "Green Theme",
+      "colors": {
+        "primary": "#2ECC71",
+        "success": "#1ABC9C",
+        "error": "#E74C3C",
+        "warning": "#F39C12",
+        "info": "#3498DB"
+      },
+      "emojis": {
+        "attending": "✅",
+        "maybe": "❓",
+        "not_attending": "❌",
+        "calendar": "📅",
+        "bell": "⏰",
+        "chart": "📊",
+        "users": "👥",
+        "reminder": "📢"
+      }
+    }
+  },
+  "defaultTheme": "default",
+  "guildThemes": {}
+}
